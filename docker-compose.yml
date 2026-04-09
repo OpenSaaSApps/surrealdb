@@ -1,0 +1,17 @@
+services:
+  app:
+    image: surrealdb/surrealdb:latest
+    container_name: surrealdb
+    restart: unless-stopped
+    ports:
+      - "${PORT:-8000}:8000"
+    command: start --user ${SURREAL_USER} --pass ${SURREAL_PASS} ${SURREAL_PATH}
+    environment:
+      - SURREAL_USER=${{SURREAL_USER}}
+      - SURREAL_PASS=${{SURREAL_PASS}}
+      - SURREAL_PATH=${{SURREAL_PATH}}
+    volumes:
+      - app_data:/data
+
+volumes:
+  app_data:
